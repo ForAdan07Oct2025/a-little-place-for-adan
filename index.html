@@ -2,389 +2,407 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Adan 🌷</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Place for Adan ❤️</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-:root {
-  --pink: #f6b8d0;
-  --lavender: #c9b8ff;
-  --cream: #fff0e8;
-  --bg: #100d1b;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff;
+      background: #160b18;
+      overflow-x: hidden;
+    }
 
-* { box-sizing: border-box; }
+    /* Background photo remains unchanged */
+    .background {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(20, 5, 18, 0.48), rgba(20, 5, 18, 0.62)),
+        url("Adan.jpg") center / cover no-repeat;
+      z-index: -3;
+    }
 
-html { scroll-behavior: smooth; }
+    /* Falling I love you text */
+    #falling {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 2;
+    }
 
-body {
-  margin: 0;
-  color: var(--cream);
-  background:
-    radial-gradient(ellipse at 15% 10%, #38213e 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 60%, #202044 0%, transparent 45%),
-    var(--bg);
-  font-family: 'DM Sans', sans-serif;
-  overflow-x: hidden;
-}
+    .fall {
+      position: absolute;
+      top: -60px;
+      color: rgba(255, 190, 220, 0.48);
+      text-shadow: 0 0 12px rgba(255, 100, 170, 0.35);
+      white-space: nowrap;
+      font-size: clamp(14px, 2.5vw, 22px);
+      animation: falling linear forwards;
+    }
 
-#stars, #hearts {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
+    @keyframes falling {
+      from {
+        transform: translateY(-60px) rotate(-8deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(110vh) rotate(8deg);
+        opacity: 0;
+      }
+    }
 
-.star {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 3s infinite ease-in-out;
-}
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(900px, 92%);
+      margin: auto;
+      padding: 35px 0 60px;
+      text-align: center;
+    }
 
-@keyframes twinkle {
-  0%, 100% { opacity: .2; transform: scale(.7); }
-  50% { opacity: 1; transform: scale(1.4); }
-}
+    .lock-card,
+    .content-card {
+      background: rgba(30, 8, 25, 0.72);
+      border: 1px solid rgba(255, 210, 230, 0.3);
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(5px);
+      margin-bottom: 24px;
+    }
 
-.heart {
-  position: absolute;
-  bottom: -30px;
-  animation: floatUp 9s linear forwards;
-  opacity: .65;
-}
+    h1, h2 {
+      color: #ffd5e8;
+      text-shadow: 0 0 14px rgba(255, 120, 180, 0.35);
+    }
 
-@keyframes floatUp {
-  to { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
-}
+    p {
+      line-height: 1.8;
+      font-size: 17px;
+    }
 
-main {
-  position: relative;
-  z-index: 1;
-}
+    input {
+      width: min(100%, 360px);
+      padding: 13px 16px;
+      margin: 12px 0;
+      border-radius: 14px;
+      border: 1px solid #f5b8d3;
+      background: rgba(255, 255, 255, 0.92);
+      color: #481b35;
+      font-size: 16px;
+      outline: none;
+    }
 
-section {
-  min-height: 90vh;
-  padding: 100px 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 22px;
+      margin: 7px;
+      color: #4a1734;
+      background: linear-gradient(135deg, #ffd5e8, #f7a9ce);
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(255, 130, 190, 0.2);
+      transition: transform 0.2s, filter 0.2s;
+    }
 
-.hero { min-height: 100vh; }
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
 
-.eyebrow {
-  color: var(--pink);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  font-size: 11px;
-}
+    .hidden {
+      display: none !important;
+    }
 
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-}
+    .message {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      margin: 16px auto;
+      max-width: 700px;
+    }
 
-h1 {
-  font-size: clamp(42px, 9vw, 82px);
-  line-height: 1.12;
-  margin: 25px 0;
-}
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-h2 {
-  font-size: clamp(32px, 6vw, 52px);
-  margin: 15px 0;
-}
+    .heart {
+      display: inline-block;
+      color: #ff9dc9;
+      animation: heartbeat 1.2s ease-in-out infinite;
+    }
 
-.glow {
-  color: var(--pink);
-  text-shadow: 0 0 35px #f6b8d080;
-}
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
 
-p {
-  color: #ded5e8;
-  line-height: 1.9;
-  max-width: 600px;
-  font-size: 15px;
-}
+    #hugOverlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 3, 12, 0.28);
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+    }
 
-button, .button {
-  border: 1px solid #f6b8d080;
-  border-radius: 50px;
-  padding: 14px 25px;
-  color: var(--cream);
-  background: #ffffff0b;
-  font: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  transition: .3s;
-  backdrop-filter: blur(10px);
-}
+    #hugOverlay.show {
+      animation: hugFade 3s ease forwards;
+    }
 
-button:hover, .button:hover {
-  background: #f6b8d025;
-  transform: translateY(-3px);
-  box-shadow: 0 0 30px #f6b8d025;
-}
+    #hugOverlay span {
+      font-size: clamp(100px, 25vw, 220px);
+      filter: drop-shadow(0 0 25px rgba(255, 180, 220, 0.7));
+    }
 
-.scroll {
-  margin-top: 60px;
-  color: #b7a7c8;
-  font-size: 12px;
-  animation: bob 2s infinite;
-}
+    @keyframes hugFade {
+      0% { opacity: 0; transform: scale(0.7); }
+      20% { opacity: 1; transform: scale(1); }
+      75% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.15); }
+    }
 
-@keyframes bob {
-  50% { transform: translateY(8px); }
-}
+    #musicButton {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 5;
+    }
 
-.card {
-  width: min(100%, 650px);
-  padding: 35px 28px;
-  border: 1px solid #ffffff18;
-  border-radius: 24px;
-  background: #ffffff08;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 20px 80px #00000020;
-}
+    @media (max-width: 600px) {
+      .page {
+        padding-top: 18px;
+      }
 
-.letter {
-  text-align: left;
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  line-height: 2;
-}
+      .lock-card,
+      .content-card {
+        padding: 22px 16px;
+      }
 
-.letter p { font-size: 17px; }
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .9s ease, transform .9s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.lock-icon { font-size: 45px; margin-bottom: 10px; }
-
-input {
-  display: block;
-  width: min(100%, 330px);
-  margin: 20px auto 12px;
-  padding: 14px 18px;
-  border-radius: 50px;
-  border: 1px solid #ffffff30;
-  outline: none;
-  background: #ffffff0b;
-  color: white;
-  text-align: center;
-  font: inherit;
-}
-
-input:focus { border-color: var(--pink); }
-
-#secret { display: none; }
-
-#secret.open {
-  display: flex;
-  animation: appear 1s ease both;
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-#error {
-  min-height: 22px;
-  color: #ffb5c8;
-  font-size: 13px;
-}
-
-footer {
-  padding: 40px 20px;
-  text-align: center;
-  color: #a99ab8;
-  font-size: 12px;
-}
-
-@media (max-width: 500px) {
-  section { padding: 75px 18px; }
-  .card { padding: 27px 20px; }
-  .letter { font-size: 16px; }
-}
-</style>
+      p {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div id="stars"></div>
-<div id="hearts"></div>
+  <div class="background"></div>
+  <div id="falling" aria-hidden="true"></div>
 
-<main>
-  <section class="hero">
-    <div class="eyebrow">A little place made just for you</div>
-    <h1>For my dear<br><span class="glow">Adan 🌷</span></h1>
-    <p>Jab duniya thori mushkil lage,<br>yahan aa kar thora sa sukoon le lena.</p>
-    <a href="#letter" class="button">A little something for you ↓</a>
-    <div class="scroll">scroll slowly ✨</div>
-  </section>
+  <main class="page">
+    <section class="lock-card" id="lockCard">
+      <h1>A Little Place for Adan <span class="heart">❤️</span></h1>
+      <p>A tiny place made with lots of love, just for you.</p>
+      <p>Enter the secret password to open it 💌</p>
 
-  <section id="letter">
-    <div class="reveal">
-      <div class="eyebrow">A little reminder</div>
-      <h2>You matter. Always. 💗</h2>
-      <div class="card letter">
-        <p>Adan, meri pyari bhn ❤️</p>
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter password"
+        autocomplete="off"
+      >
+      <br>
+      <button onclick="unlock()">Open My Little Place 💗</button>
+      <p id="error" class="hidden">Oops, try again, Adan 💕</p>
+    </section>
+
+    <div id="mainContent" class="hidden">
+      <section class="content-card">
+        <h1>For You, Adan ❤️</h1>
         <p>
-          Pta ha, kabhi kabhi zindagi mein itni sari baatein
-          ek sath ho jati hain ke dil bht thak jata ha.
-          Lekin tumhe har waqt sab kuch sambhalna zaroori nahi.
+          Some people make the world feel softer just by being in it.
+          You are one of those people.
         </p>
-        <p>
-          Thora araam kar lena, apna khayal rakhna,
-          aur yaad rakhna ke tumhari khushi bht important ha.
-          Tumhari muskurahat tumhari pareshaniyon se kahin zyada pyari ha.
+        <p>I'm really glad you're in my life. <span class="heart">❤️</span></p>
+      </section>
+
+      <section class="content-card">
+        <h2>Little Reminders 🌷</h2>
+        <p>Whenever you need a little reminder, tap the button.</p>
+        <div id="reminderArea"></div>
+        <button id="reminderButton" onclick="showReminder()">
+          A Little Reminder 💌
+        </button>
+        <button id="allButton" class="hidden" onclick="showAllReminders()">
+          Read Them All 💗
+        </button>
+      </section>
+
+      <section class="content-card">
+        <h2>A Little Promise 🤍</h2>
+        <p class="message">
+          I hope you always remember how much kindness and warmth you bring
+          into the lives around you.
         </p>
-        <p>
-          Phone paas ho ya na ho, achi yaadein aur apne log
-          dil ke paas rehte hain. Ye waqt bhi guzar jayega,
-          InshaAllah. 🌸
+        <p class="message">
+          You deserve patience, happiness, and people who care about you.
         </p>
-        <p>Khud pe thora sa reham karna, meri bhn. 🫂</p>
-      </div>
+        <p class="message">
+          No matter how busy life gets, I hope you never forget that you matter.
+        </p>
+        <button onclick="revealPromises()">Read a Little More ✨</button>
+      </section>
+
+      <section class="content-card">
+        <h2>One Last Thing 🫂</h2>
+        <p>Sending you the biggest virtual hug.</p>
+        <button onclick="sendHug()">Send a Hug 🫂</button>
+      </section>
     </div>
-  </section>
+  </main>
 
-  <section>
-    <div class="reveal">
-      <div class="eyebrow">For the days you feel alone</div>
-      <h2>Little reminders 🌙</h2>
-      <div class="card">
-        <p>🌷 Tumhari feelings matter karti hain.</p>
-        <p>✨ Tumhe har waqt strong rehna zaroori nahi.</p>
-        <p>🫶 Tumhari value kisi phone ya message se decide nahi hoti.</p>
-        <p>🌸 Aaj bas apna khayal rakhna bhi kaafi ha.</p>
-        <p>💗 Tumhari zindagi mein abhi boht si achi cheezein aani hain.</p>
-      </div>
-    </div>
-  </section>
+  <button id="musicButton" onclick="toggleMusic()">Play Music 🎵</button>
 
-  <section>
-    <div class="reveal">
-      <div class="eyebrow">One tiny request</div>
-      <h2>Can you smile for me? 😊</h2>
-      <p>
-        Bas ek choti si smile. Tumhari smile duniya ki
-        sari pareshaniyan khatam na bhi kare, phir bhi
-        tumhare din ko thora behtar bana sakti ha.
-      </p>
-      <button onclick="makeHearts()">Send some love 💕</button>
-    </div>
-  </section>
+  <audio id="music" loop>
+    <source
+      src="Alfaaz%20Hamza%20Malik%20x%20Zain%20Zohaib%20Official%20Visualiser.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
 
-  <section id="locked">
-    <div class="reveal">
-      <div class="lock-icon">🔐</div>
-      <div class="eyebrow">A little secret, just for you</div>
-      <h2>Something special</h2>
-      <p>Is choti si jagah ka password sirf tumhe bataya jayega. 💌</p>
-      <input id="password" type="password" placeholder="Enter your secret password">
-      <button onclick="unlock()">Unlock my surprise ♡</button>
-      <div id="error"></div>
-    </div>
-  </section>
+  <div id="hugOverlay" aria-hidden="true"><span>🫂</span></div>
 
-  <section id="secret">
-    <div class="card">
-      <div class="eyebrow">You found your little surprise</div>
-      <h2 class="glow">Adan, you're precious. 💗</h2>
-      <p>
-        Tum jaisi ho, bht achi ho. Tumhari kindness,
-        tumhara caring nature aur tumhari choti choti baatein
-        tumhe boht special banati hain.
-      </p>
-      <p>
-        Jab dobara phone mile aur tum ye parho,
-        to bas yaad rakhna: tumhari dosti mere liye
-        bht meaningful ha. Apna khayal rakhna,
-        aur hamesha khush rehne ki koshish karna. 🌷
-      </p>
-      <p>— Tumhara dost ❤️</p>
-    </div>
-  </section>
+  <script>
+    const correctPassword = "Meri jaan Adan ❤️";
 
-  <footer>Made with care, just for Adan 🌷</footer>
-</main>
+    const reminders = [
+      "You matter more than you realize. 💗",
+      "You deserve kindness, always. 🌷",
+      "Your presence makes a difference. ✨",
+      "You don't have to be perfect to be appreciated. 🤍",
+      "I hope today gives you a reason to smile. 😊",
+      "Be gentle with yourself. You deserve that too. 💕"
+    ];
 
-<script>
-  // Twinkling stars
-  const stars = document.getElementById('stars');
-  for (let i = 0; i < 90; i++) {
-    const star = document.createElement('span');
-    star.className = 'star';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.animationDelay = Math.random() * 3 + 's';
-    stars.appendChild(star);
-  }
+    let reminderIndex = 0;
+    let promisesRevealed = false;
 
-  // Reveal sections on scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+    function unlock() {
+      const entered = document.getElementById("password").value;
+      const error = document.getElementById("error");
+
+      if (entered === correctPassword) {
+        document.getElementById("lockCard").classList.add("hidden");
+        document.getElementById("mainContent").classList.remove("hidden");
+        error.classList.add("hidden");
+      } else {
+        error.classList.remove("hidden");
       }
+    }
+
+    document.getElementById("password").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") unlock();
     });
-  }, { threshold: 0.15 });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    function showReminder() {
+      const area = document.getElementById("reminderArea");
 
-  // Floating hearts
-  function makeHearts() {
-    const container = document.getElementById('hearts');
-    for (let i = 0; i < 18; i++) {
-      const heart = document.createElement('span');
-      heart.className = 'heart';
-      heart.textContent = ['💗', '💕', '🌸', '✨'][Math.floor(Math.random() * 4)];
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      container.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
+      if (reminderIndex >= reminders.length) {
+        document.getElementById("reminderButton").classList.add("hidden");
+        document.getElementById("allButton").classList.remove("hidden");
+        return;
+      }
+
+      const message = document.createElement("p");
+      message.className = "message";
+      message.textContent = reminders[reminderIndex];
+      area.appendChild(message);
+
+      requestAnimationFrame(() => message.classList.add("show"));
+      reminderIndex++;
+
+      if (reminderIndex >= reminders.length) {
+        document.getElementById("reminderButton").textContent = "That's all for now 💗";
+        document.getElementById("allButton").classList.remove("hidden");
+      }
     }
-  }
 
-  // Password gate
-  function unlock() {
-    const entered = document.getElementById('password').value;
-    const correct = 'Meri jaan Adan ❤️';
+    function showAllReminders() {
+      const area = document.getElementById("reminderArea");
+      area.innerHTML = "";
 
-    if (entered === correct) {
-      document.getElementById('secret').classList.add('open');
-      document.getElementById('error').textContent = '';
-      document.getElementById('password').value = '';
-      document.getElementById('secret').scrollIntoView({ behavior: 'smooth' });
-      makeHearts();
-    } else {
-      document.getElementById('error').textContent =
-        'Password sahi nahi ha, dobara try kro 💗';
+      reminders.forEach((text, index) => {
+        const message = document.createElement("p");
+        message.className = "message";
+        message.textContent = text;
+        area.appendChild(message);
+        setTimeout(() => message.classList.add("show"), index * 180);
+      });
+
+      document.getElementById("allButton").classList.add("hidden");
     }
-  }
 
-  document.getElementById('password').addEventListener('keydown', e => {
-    if (e.key === 'Enter') unlock();
-  });
-</script>
+    function revealPromises() {
+      if (promisesRevealed) return;
+      promisesRevealed = true;
+
+      document.querySelectorAll(".message").forEach((message, index) => {
+        setTimeout(() => message.classList.add("show"), index * 250);
+      });
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("music");
+      const button = document.getElementById("musicButton");
+
+      if (music.paused) {
+        music.play().then(() => {
+          button.textContent = "Pause Music ⏸️";
+        }).catch(() => {
+          button.textContent = "Tap to Play Music 🎵";
+        });
+      } else {
+        music.pause();
+        button.textContent = "Play Music 🎵";
+      }
+    }
+
+    function sendHug() {
+      const overlay = document.getElementById("hugOverlay");
+      overlay.classList.remove("show");
+      void overlay.offsetWidth;
+      overlay.classList.add("show");
+    }
+
+    // Continuously create falling "I love you Adan" messages.
+    const fallingLayer = document.getElementById("falling");
+
+    function createFallingText() {
+      const text = document.createElement("span");
+      text.className = "fall";
+      text.textContent = "I love you Adan ❤️";
+
+      text.style.left = Math.random() * 100 + "vw";
+      text.style.animationDuration = (7 + Math.random() * 7) + "s";
+      text.style.fontSize = (14 + Math.random() * 9) + "px";
+
+      fallingLayer.appendChild(text);
+
+      setTimeout(() => text.remove(), 15000);
+    }
+
+    setInterval(createFallingText, 650);
+  </script>
 </body>
 </html>
