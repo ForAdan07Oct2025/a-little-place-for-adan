@@ -202,7 +202,7 @@ p {
 
 .promise-display,
 .reminder-display {
-  min-height: 150px;
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,11 +248,11 @@ p {
   display: none;
   margin-top: 25px;
   text-align: left;
-  animation: fadeIn 1.5s ease both;
 }
 
 .final-list.show {
   display: block;
+  animation: fadeIn 1.5s ease both;
 }
 
 .final-list p {
@@ -433,13 +433,13 @@ footer {
 
 <div class="stars"></div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop autoplay preload="auto">
   <source src="Alfaaz Hamza Malik x Zain Zohaib Official Visualiser.mp3"
           type="audio/mpeg">
 </audio>
 
 <div class="music-player">
-  <button id="musicBtn" aria-label="Play or pause music">♫</button>
+  <button id="musicBtn" aria-label="Play or pause music">▶</button>
   <span>Alfaaz 🎵</span>
 </div>
 
@@ -539,10 +539,6 @@ footer {
 
     <div class="small-hearts" id="promiseHearts">♡ ♡ ♡</div>
 
-    <button class="button" id="promiseBtn" onclick="nextPromise()">
-      Promise me 🤍
-    </button>
-
     <div class="final-list" id="promiseFinal">
       <p>♡ Kabhi khud ko akela nahi samjho gi..</p>
       <p>♡ Apna boht khial rakho gi..</p>
@@ -575,10 +571,6 @@ footer {
     </div>
 
     <div class="small-hearts" id="reminderHearts">♡ ♡ ♡</div>
-
-    <button class="button" id="reminderBtn" onclick="nextReminder()">
-      Read a little reminder 🌷
-    </button>
 
     <div class="final-list" id="reminderFinal">
       <p>🌸 Aapko har waqt strong rehne ki zaroorat nahi.</p>
@@ -728,29 +720,48 @@ footer {
 const music = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 
+function updateMusicButton() {
+  musicBtn.textContent = music.paused ? "▶" : "♫";
+}
+
+async function tryPlayMusic() {
+  try {
+    await music.play();
+    updateMusicButton();
+  } catch (error) {
+    // Browser may block autoplay; the Play button remains available.
+    updateMusicButton();
+  }
+}
+
+music.addEventListener("play", updateMusicButton);
+music.addEventListener("pause", updateMusicButton);
+
 musicBtn.addEventListener("click", async () => {
   if (music.paused) {
-    try {
-      await music.play();
-      musicBtn.textContent = "♫";
-    } catch (error) {
-      musicBtn.textContent = "▶";
-    }
+    await tryPlayMusic();
   } else {
     music.pause();
-    musicBtn.textContent = "▶";
   }
 });
 
+// Try autoplay when the page loads.
+tryPlayMusic();
+
 /* SCROLL */
 function goTo(id) {
+  // A user click can also allow playback if autoplay was blocked.
+  if (music.paused) {
+    tryPlayMusic();
+  }
+
   document.getElementById(id).scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
 }
 
-/* PROMISES: ONE BY ONE, THEN ALL TOGETHER */
+/* AUTOMATIC PROMISES */
 const promises = [
   "Kabhi khud ko akela nahi samjho gi.. 🤍",
   "Apna boht khial rakho gi.. 🌷",
@@ -759,34 +770,36 @@ const promises = [
   "Roz mere khawab ma aow gi 🫂🥹"
 ];
 
-let promiseIndex = 0;
+let promisesStarted = false;
 
-function nextPromise() {
+async function revealPromises() {
+  if (promisesStarted) return;
+  promisesStarted = true;
+
   const text = document.getElementById("promiseText");
-  const btn = document.getElementById("promiseBtn");
+  const hearts = document.getElementById("promiseHearts");
   const finalList = document.getElementById("promiseFinal");
+  const nextButton = document.getElementById("promiseNext");
 
-  if (promiseIndex < promises.length) {
+  for (const promise of promises) {
+    text.style.display = "block";
     text.style.animation = "none";
     void text.offsetWidth;
-    text.textContent = promises[promiseIndex];
+    text.textContent = promise;
     text.style.animation = "fadeIn 1.2s ease both";
 
-    promiseIndex++;
-
-    if (promiseIndex === promises.length) {
-      btn.textContent = "See all my promises 🤍";
-    }
-  } else {
-    text.style.display = "none";
-    document.getElementById("promiseHearts").style.display = "none";
-    btn.style.display = "none";
-    finalList.classList.add("show");
-    document.getElementById("promiseNext").style.display = "inline-flex";
+    await new Promise(resolve => setTimeout(resolve, 1900));
   }
+
+  text.style.display = "none";
+  hearts.style.display = "none";
+
+  // Reveal the complete list together after the individual promises.
+  finalList.classList.add("show");
+  nextButton.style.display = "inline-flex";
 }
 
-/* REMINDERS: ONE BY ONE, THEN ALL TOGETHER */
+/* AUTOMATIC REMINDERS */
 const reminders = [
   "🌸 Aapko har waqt strong rehne ki zaroorat nahi.",
   "🫂 Aapki feelings important hain, chahe koi unhe samjhe ya na samjhe.",
@@ -796,32 +809,54 @@ const reminders = [
   "🌷 Aaj agar aap sirf apna khayal rakh pao, to woh bhi bohat ha."
 ];
 
-let reminderIndex = 0;
+let remindersStarted = false;
 
-function nextReminder() {
+async function revealReminders() {
+  if (remindersStarted) return;
+  remindersStarted = true;
+
   const text = document.getElementById("reminderText");
-  const btn = document.getElementById("reminderBtn");
+  const hearts = document.getElementById("reminderHearts");
   const finalList = document.getElementById("reminderFinal");
+  const nextButton = document.getElementById("reminderNext");
 
-  if (reminderIndex < reminders.length) {
+  for (const reminder of reminders) {
+    text.style.display = "block";
     text.style.animation = "none";
     void text.offsetWidth;
-    text.textContent = reminders[reminderIndex];
+    text.textContent = reminder;
     text.style.animation = "fadeIn 1.2s ease both";
 
-    reminderIndex++;
-
-    if (reminderIndex === reminders.length) {
-      btn.textContent = "See all reminders 🌸";
-    }
-  } else {
-    text.style.display = "none";
-    document.getElementById("reminderHearts").style.display = "none";
-    btn.style.display = "none";
-    finalList.classList.add("show");
-    document.getElementById("reminderNext").style.display = "inline-flex";
+    await new Promise(resolve => setTimeout(resolve, 1900));
   }
+
+  text.style.display = "none";
+  hearts.style.display = "none";
+
+  // Reveal all reminders together.
+  finalList.classList.add("show");
+  nextButton.style.display = "inline-flex";
 }
+
+/* START SECTIONS WHEN THEY ENTER VIEW */
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (entry.target.id === "promises") {
+        revealPromises();
+      }
+
+      if (entry.target.id === "reminders") {
+        revealReminders();
+      }
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+sectionObserver.observe(document.getElementById("promises"));
+sectionObserver.observe(document.getElementById("reminders"));
 
 /* PASSWORD */
 const passwordForm = document.getElementById("passwordForm");
@@ -846,12 +881,13 @@ passwordForm.addEventListener("submit", function(event) {
   }
 });
 
-/* FALLING I LOVE YOU TEXT */
+/* FALLING LOVE YOU TEXT */
 const fallingLove = document.getElementById("fallingLove");
 
 for (let i = 0; i < 24; i++) {
   const span = document.createElement("span");
-  span.textContent = "I love you Adan";
+
+  span.textContent = "Love you, Adan ❤️ 🌷";
 
   span.style.setProperty("--left", Math.random() * 100 + "%");
   span.style.setProperty("--size", (12 + Math.random() * 12) + "px");
@@ -862,14 +898,19 @@ for (let i = 0; i < 24; i++) {
 }
 
 /* HUG */
+let hugTimer;
+
 function showHug() {
   const overlay = document.getElementById("hugOverlay");
+
+  // Clear an earlier timer so rapid taps don't cancel the new hug.
+  clearTimeout(hugTimer);
 
   overlay.classList.remove("show");
   void overlay.offsetWidth;
   overlay.classList.add("show");
 
-  setTimeout(() => {
+  hugTimer = setTimeout(() => {
     overlay.classList.remove("show");
   }, 3500);
 }
