@@ -1,408 +1,330 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Little Place for Adan ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Place for Adan 🌷</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Georgia, "Times New Roman", serif;
-      color: #fff;
-      background: #160b18;
-      overflow-x: hidden;
-    }
+body {
+  min-height: 100vh;
+  background: #090b14;
+  color: #f8edf4;
+  font-family: Georgia, serif;
+  overflow-x: hidden;
+}
 
-    /* Background photo remains unchanged */
-    .background {
-      position: fixed;
-      inset: 0;
-      background:
-        linear-gradient(rgba(20, 5, 18, 0.48), rgba(20, 5, 18, 0.62)),
-        url("Adan.jpg") center / cover no-repeat;
-      z-index: -3;
-    }
+.background {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, #32243c 0, transparent 40%),
+    radial-gradient(circle at 80% 80%, #172b3c 0, transparent 45%),
+    #090b14;
+  z-index: -2;
+}
 
-    /* Falling I love you text */
-    #falling {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 2;
-    }
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, white 50%, transparent),
+    radial-gradient(1px 1px at 70% 60%, white 50%, transparent),
+    radial-gradient(2px 2px at 40% 80%, white 50%, transparent);
+  background-size: 220px 220px;
+  z-index: -1;
+}
 
-    .fall {
-      position: absolute;
-      top: -60px;
-      color: rgba(255, 190, 220, 0.48);
-      text-shadow: 0 0 12px rgba(255, 100, 170, 0.35);
-      white-space: nowrap;
-      font-size: clamp(14px, 2.5vw, 22px);
-      animation: falling linear forwards;
-    }
+main {
+  width: min(90%, 680px);
+  margin: auto;
+  padding: 70px 0;
+}
 
-    @keyframes falling {
-      from {
-        transform: translateY(-60px) rotate(-8deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 0.8;
-      }
-      to {
-        transform: translateY(110vh) rotate(8deg);
-        opacity: 0;
-      }
-    }
+.screen {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  animation: appear 1.5s ease both;
+}
 
-    .page {
-      position: relative;
-      z-index: 1;
-      width: min(900px, 92%);
-      margin: auto;
-      padding: 35px 0 60px;
-      text-align: center;
-    }
+h1 {
+  font-size: clamp(2rem, 7vw, 3.3rem);
+  line-height: 1.3;
+  color: #f5dce9;
+  font-weight: normal;
+}
 
-    .lock-card,
-    .content-card {
-      background: rgba(30, 8, 25, 0.72);
-      border: 1px solid rgba(255, 210, 230, 0.3);
-      border-radius: 24px;
-      padding: 28px 22px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(5px);
-      margin-bottom: 24px;
-    }
+h2 {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: normal;
+  color: #e9c9db;
+}
 
-    h1, h2 {
-      color: #ffd5e8;
-      text-shadow: 0 0 14px rgba(255, 120, 180, 0.35);
-    }
+p {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: #e5d8e2;
+}
 
-    p {
-      line-height: 1.8;
-      font-size: 17px;
-    }
+.card {
+  width: 100%;
+  padding: 30px 24px;
+  border: 1px solid rgba(255, 220, 240, .15);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .045);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 50px rgba(0,0,0,.2);
+}
 
-    input {
-      width: min(100%, 360px);
-      padding: 13px 16px;
-      margin: 12px 0;
-      border-radius: 14px;
-      border: 1px solid #f5b8d3;
-      background: rgba(255, 255, 255, 0.92);
-      color: #481b35;
-      font-size: 16px;
-      outline: none;
-    }
+button, input {
+  font: inherit;
+  border-radius: 30px;
+  padding: 13px 22px;
+  border: 1px solid rgba(255,220,240,.3);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
 
-    button {
-      border: 0;
-      border-radius: 999px;
-      padding: 12px 22px;
-      margin: 7px;
-      color: #4a1734;
-      background: linear-gradient(135deg, #ffd5e8, #f7a9ce);
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 5px 18px rgba(255, 130, 190, 0.2);
-      transition: transform 0.2s, filter 0.2s;
-    }
+button {
+  cursor: pointer;
+  transition: .3s;
+}
 
-    button:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.05);
-    }
+button:hover {
+  background: rgba(255,220,240,.18);
+}
 
-    .hidden {
-      display: none !important;
-    }
+input {
+  width: 100%;
+  outline: none;
+}
 
-    .message {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      margin: 16px auto;
-      max-width: 700px;
-    }
+.hidden {
+  display: none !important;
+}
 
-    .message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+#passwordScreen {
+  min-height: 60vh;
+}
 
-    .heart {
-      display: inline-block;
-      color: #ff9dc9;
-      animation: heartbeat 1.2s ease-in-out infinite;
-    }
+#passwordError {
+  color: #f4b8ca;
+  font-size: .95rem;
+}
 
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.18); }
-    }
+.message {
+  margin: 28px 0;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: messageIn 1.3s ease forwards;
+}
 
-    #hugOverlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 3, 12, 0.28);
-      z-index: 10;
-      pointer-events: none;
-      opacity: 0;
-    }
+.love-box {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,210,235,.35);
+  background: rgba(255,190,220,.08);
+  border-radius: 28px;
+  padding: 45px 24px;
+  box-shadow: 0 0 45px rgba(255,170,210,.08);
+}
 
-    #hugOverlay.show {
-      animation: hugFade 3s ease forwards;
-    }
+.love-text {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  color: #ffd6e8;
+  text-shadow: 0 0 25px rgba(255,180,220,.35);
+}
 
-    #hugOverlay span {
-      font-size: clamp(100px, 25vw, 220px);
-      filter: drop-shadow(0 0 25px rgba(255, 180, 220, 0.7));
-    }
+.hug-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8vw;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  animation: hugFade 5s ease-in-out forwards;
+}
 
-    @keyframes hugFade {
-      0% { opacity: 0; transform: scale(0.7); }
-      20% { opacity: 1; transform: scale(1); }
-      75% { opacity: 1; }
-      100% { opacity: 0; transform: scale(1.15); }
-    }
+.hug-emoji {
+  font-size: clamp(5rem, 22vw, 12rem);
+  opacity: .35;
+  filter: blur(.3px);
+}
 
-    #musicButton {
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 5;
-    }
+.hug-emoji:first-child {
+  animation: floatLeft 5s ease-in-out forwards;
+}
 
-    @media (max-width: 600px) {
-      .page {
-        padding-top: 18px;
-      }
+.hug-emoji:last-child {
+  animation: floatRight 5s ease-in-out forwards;
+}
 
-      .lock-card,
-      .content-card {
-        padding: 22px 16px;
-      }
+@keyframes hugFade {
+  0%, 100% { opacity: 0; }
+  20%, 70% { opacity: 1; }
+}
 
-      p {
-        font-size: 16px;
-      }
-    }
-  </style>
+@keyframes floatLeft {
+  0% { transform: translateX(-70px) scale(.7); opacity: 0; }
+  25%, 65% { transform: translateX(0) scale(1); opacity: .35; }
+  100% { transform: translateX(30px) scale(1.2); opacity: 0; }
+}
+
+@keyframes floatRight {
+  0% { transform: translateX(70px) scale(.7); opacity: 0; }
+  25%, 65% { transform: translateX(0) scale(1); opacity: .35; }
+  100% { transform: translateX(-30px) scale(1.2); opacity: 0; }
+}
+
+@keyframes appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes messageIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="background"></div>
-  <div id="falling" aria-hidden="true"></div>
+<div class="background"></div>
+<div class="stars"></div>
 
-  <main class="page">
-    <section class="lock-card" id="lockCard">
-      <h1>A Little Place for Adan <span class="heart">❤️</span></h1>
-      <p>A tiny place made with lots of love, just for you.</p>
-      <p>Enter the secret password to open it 💌</p>
+<main>
+  <!-- Welcome screen -->
+  <section id="welcome" class="screen">
+    <h1>A little place,<br>just for you, Adan 🌷</h1>
+    <p>
+      Kabhi kabhi dil ko bas ek aisi jagah chahiye hoti hai
+      jahan kuch der ke liye duniya ki pareshaniyan bhool kar
+      sukoon mil sake.
+    </p>
+    <p>Ye choti si jagah aapke liye hai. 🤍</p>
+    <button onclick="startMessages()">Come in 🌷</button>
+  </section>
 
-      <input
-        id="password"
-        type="password"
-        placeholder="Enter password"
-        autocomplete="off"
-      >
-      <br>
-      <button onclick="unlock()">Open My Little Place 💗</button>
-      <p id="error" class="hidden">Oops, try again, Adan 💕</p>
-    </section>
-
-    <div id="mainContent" class="hidden">
-      <section class="content-card">
-        <h1>For You, Adan ❤️</h1>
+  <!-- Automatically appearing messages -->
+  <section id="messages" class="hidden">
+    <div class="screen">
+      <div class="card message">
+        <h2>A little reminder 🤍</h2>
         <p>
-          Some people make the world feel softer just by being in it.
-          You are one of those people.
+          <!-- Apna pehla original message yahan likho -->
+          Aap hamesha dusron ke liye itna sochti hain.
+          Kabhi apne dil ko bhi utni hi narmi diya karein.
         </p>
-        <p>I'm really glad you're in my life. <span class="heart">❤️</span></p>
-      </section>
+      </div>
 
-      <section class="content-card">
-        <h2>Little Reminders 🌷</h2>
-        <p>Whenever you need a little reminder, tap the button.</p>
-        <div id="reminderArea"></div>
-        <button id="reminderButton" onclick="showReminder()">
-          A Little Reminder 💌
-        </button>
-        <button id="allButton" class="hidden" onclick="showAllReminders()">
-          Read Them All 💗
-        </button>
-      </section>
+      <div class="card message">
+        <h2>You matter 🌸</h2>
+        <p>
+          <!-- Apna doosra original message yahan likho -->
+          Aapki feelings bhi important hain.
+          Aapko bhi samjhe jaane aur sukoon milne ka haq hai.
+        </p>
+      </div>
 
-      <section class="content-card">
-        <h2>A Little Promise 🤍</h2>
-        <p class="message">
-          I hope you always remember how much kindness and warmth you bring
-          into the lives around you.
+      <div class="card message">
+        <h2>A gentle hug 🫂</h2>
+        <p>
+          <!-- Apna teesra original message yahan likho -->
+          Jab bhi dil udaas ho, yaad rakhna ke aap akeli nahi hain.
         </p>
-        <p class="message">
-          You deserve patience, happiness, and people who care about you.
-        </p>
-        <p class="message">
-          No matter how busy life gets, I hope you never forget that you matter.
-        </p>
-        <button onclick="revealPromises()">Read a Little More ✨</button>
-      </section>
-
-      <section class="content-card">
-        <h2>One Last Thing 🫂</h2>
-        <p>Sending you the biggest virtual hug.</p>
-        <button onclick="sendHug()">Send a Hug 🫂</button>
-      </section>
+      </div>
     </div>
-  </main>
+  </section>
 
-  <button id="musicButton" onclick="toggleMusic()">Play Music 🎵</button>
+  <!-- Password appears only before the final message -->
+  <section id="passwordScreen" class="screen hidden">
+    <div class="card">
+      <h2>A little secret 🌙</h2>
+      <p>Is message ke liye password enter karein.</p>
+      <input id="passwordInput" type="password" placeholder="Password">
+      <button onclick="checkPassword()">Open message</button>
+      <p id="passwordError"></p>
+    </div>
+  </section>
 
-  <audio id="music" loop>
-    <source
-      src="Alfaaz%20Hamza%20Malik%20x%20Zain%20Zohaib%20Official%20Visualiser.mp3"
-      type="audio/mpeg"
-    >
-  </audio>
+  <!-- Final private message -->
+  <section id="finalMessage" class="screen hidden">
+    <div class="love-box">
+      <div class="love-text">Love you Adan 🤍</div>
+      <p style="margin-top:20px">
+        <!-- Apna final original message yahan likho -->
+        Aapki khushi aur sukoon hamesha important hain.
+      </p>
+    </div>
+  </section>
+</main>
 
-  <div id="hugOverlay" aria-hidden="true"><span>🫂</span></div>
+<script>
+const PASSWORD = "adan"; // Yahan apna password likhein
 
-  <script>
-    const correctPassword = "Meri jaan Adan ❤️";
+function startMessages() {
+  document.getElementById("welcome").classList.add("hidden");
+  document.getElementById("messages").classList.remove("hidden");
 
-    const reminders = [
-      "You matter more than you realize. 💗",
-      "You deserve kindness, always. 🌷",
-      "Your presence makes a difference. ✨",
-      "You don't have to be perfect to be appreciated. 🤍",
-      "I hope today gives you a reason to smile. 😊",
-      "Be gentle with yourself. You deserve that too. 💕"
-    ];
+  const cards = document.querySelectorAll("#messages .message");
 
-    let reminderIndex = 0;
-    let promisesRevealed = false;
+  cards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 5}s`;
+  });
 
-    function unlock() {
-      const entered = document.getElementById("password").value;
-      const error = document.getElementById("error");
+  const totalTime = cards.length * 5000 + 1500;
 
-      if (entered === correctPassword) {
-        document.getElementById("lockCard").classList.add("hidden");
-        document.getElementById("mainContent").classList.remove("hidden");
-        error.classList.add("hidden");
-      } else {
-        error.classList.remove("hidden");
-      }
-    }
+  setTimeout(() => {
+    document.getElementById("messages").classList.add("hidden");
+    document.getElementById("passwordScreen").classList.remove("hidden");
+  }, totalTime);
+}
 
-    document.getElementById("password").addEventListener("keydown", function(event) {
-      if (event.key === "Enter") unlock();
-    });
+function checkPassword() {
+  const entered = document.getElementById("passwordInput").value;
 
-    function showReminder() {
-      const area = document.getElementById("reminderArea");
+  if (entered === PASSWORD) {
+    document.getElementById("passwordScreen").classList.add("hidden");
+    document.getElementById("finalMessage").classList.remove("hidden");
+    showHug();
+  } else {
+    document.getElementById("passwordError").textContent =
+      "Password sahi nahi hai, dobara try karein. 🌷";
+  }
+}
 
-      if (reminderIndex >= reminders.length) {
-        document.getElementById("reminderButton").classList.add("hidden");
-        document.getElementById("allButton").classList.remove("hidden");
-        return;
-      }
+function showHug() {
+  const overlay = document.createElement("div");
+  overlay.className = "hug-overlay";
+  overlay.innerHTML = `
+    <span class="hug-emoji">🫂</span>
+    <span class="hug-emoji">🤍</span>
+  `;
+  document.body.appendChild(overlay);
 
-      const message = document.createElement("p");
-      message.className = "message";
-      message.textContent = reminders[reminderIndex];
-      area.appendChild(message);
-
-      requestAnimationFrame(() => message.classList.add("show"));
-      reminderIndex++;
-
-      if (reminderIndex >= reminders.length) {
-        document.getElementById("reminderButton").textContent = "That's all for now 💗";
-        document.getElementById("allButton").classList.remove("hidden");
-      }
-    }
-
-    function showAllReminders() {
-      const area = document.getElementById("reminderArea");
-      area.innerHTML = "";
-
-      reminders.forEach((text, index) => {
-        const message = document.createElement("p");
-        message.className = "message";
-        message.textContent = text;
-        area.appendChild(message);
-        setTimeout(() => message.classList.add("show"), index * 180);
-      });
-
-      document.getElementById("allButton").classList.add("hidden");
-    }
-
-    function revealPromises() {
-      if (promisesRevealed) return;
-      promisesRevealed = true;
-
-      document.querySelectorAll(".message").forEach((message, index) => {
-        setTimeout(() => message.classList.add("show"), index * 250);
-      });
-    }
-
-    function toggleMusic() {
-      const music = document.getElementById("music");
-      const button = document.getElementById("musicButton");
-
-      if (music.paused) {
-        music.play().then(() => {
-          button.textContent = "Pause Music ⏸️";
-        }).catch(() => {
-          button.textContent = "Tap to Play Music 🎵";
-        });
-      } else {
-        music.pause();
-        button.textContent = "Play Music 🎵";
-      }
-    }
-
-    function sendHug() {
-      const overlay = document.getElementById("hugOverlay");
-      overlay.classList.remove("show");
-      void overlay.offsetWidth;
-      overlay.classList.add("show");
-    }
-
-    // Continuously create falling "I love you Adan" messages.
-    const fallingLayer = document.getElementById("falling");
-
-    function createFallingText() {
-      const text = document.createElement("span");
-      text.className = "fall";
-      text.textContent = "I love you Adan ❤️";
-
-      text.style.left = Math.random() * 100 + "vw";
-      text.style.animationDuration = (7 + Math.random() * 7) + "s";
-      text.style.fontSize = (14 + Math.random() * 9) + "px";
-
-      fallingLayer.appendChild(text);
-
-      setTimeout(() => text.remove(), 15000);
-    }
-
-    setInterval(createFallingText, 650);
-  </script>
+  setTimeout(() => overlay.remove(), 5200);
+}
+</script>
 </body>
 </html>
